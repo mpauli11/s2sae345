@@ -5,7 +5,6 @@ DROP TABLE IF EXISTS ligne_commande;
 DROP TABLE IF EXISTS casque;
 DROP TABLE IF EXISTS commande;
 DROP TABLE IF EXISTS taille;
-DROP TABLE IF EXISTS image;
 DROP TABLE IF EXISTS fournisseur;
 DROP TABLE IF EXISTS fabricant;
 DROP TABLE IF EXISTS type_casque;
@@ -61,12 +60,6 @@ CREATE TABLE fournisseur(
    PRIMARY KEY(fournisseur_id)
 );
 
-CREATE TABLE image(
-   image_id INT AUTO_INCREMENT,
-   url_Image VARCHAR(255),
-   PRIMARY KEY(image_id)
-);
-
 CREATE TABLE taille(
    taille_id INT AUTO_INCREMENT,
    num_taille NUMERIC(7,2),
@@ -89,18 +82,15 @@ CREATE TABLE casque(
    casque_id INT AUTO_INCREMENT,
    nom_casque VARCHAR(255),
    stock_casque INT,
-   prix_achat_casque NUMERIC(7,2),
-   date_achat_casque NUMERIC(7,2),
+   prix_casque NUMERIC(7,2),
    description_casque VARCHAR(255),
+   image_casque VARCHAR(255),
    taille_id INT,
-   image_id INT,
    fabricant_id INT,
    type_casque_id INT,
    PRIMARY KEY(casque_id),
    CONSTRAINT fk_casque_taille
    FOREIGN KEY(taille_id) REFERENCES taille(taille_id),
-   CONSTRAINT fk_casque_image
-   FOREIGN KEY(image_id) REFERENCES image(image_id),
    CONSTRAINT fk_casque_fabricant
    FOREIGN KEY(fabricant_id) REFERENCES fabricant(fabricant_id),
    CONSTRAINT fk_casque_type_casque
@@ -133,11 +123,13 @@ CREATE TABLE panier(
     FOREIGN KEY(casque_id) REFERENCES casque(casque_id)
 );
 
-CREATE TABLE a(
+CREATE TABLE vient_de(
    casque_id INT,
    fournisseur_id INT,
    PRIMARY KEY(casque_id, fournisseur_id),
+   CONSTRAINT fk_vient_de_casque
    FOREIGN KEY(casque_id) REFERENCES casque(casque_id),
+   CONSTRAINT fk_vient_de_fournisseur
    FOREIGN KEY(fournisseur_id) REFERENCES fournisseur(fournisseur_id)
 );
 
