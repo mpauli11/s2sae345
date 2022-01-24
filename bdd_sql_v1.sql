@@ -81,8 +81,8 @@ CREATE TABLE commande(
 CREATE TABLE casque(
    casque_id INT AUTO_INCREMENT,
    nom_casque VARCHAR(255),
-   stock_casque INT,
    prix_casque NUMERIC(7,2),
+   stock_casque INT,
    description_casque VARCHAR(255),
    image_casque VARCHAR(255),
    taille_id INT,
